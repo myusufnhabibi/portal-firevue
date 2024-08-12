@@ -12,6 +12,19 @@ import LoginView from "@/views/public/LoginView.vue";
 import RegisterView from "@/views/public/RegisterView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
+const login = true;
+
+const beforeAuth = (to, from, next) => {
+  if (!login) {
+    alert("Login terlebih dahulul");
+    next({
+      name: "Login",
+    });
+  } else {
+    next();
+  }
+};
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -19,9 +32,10 @@ const router = createRouter({
     {
       path: "/admin",
       component: AdminLayout,
+      beforeEnter: beforeAuth,
       children: [
         {
-          path: "",
+          path: "dashboard",
           name: "Dashboard",
           component: DashboardView,
         },
@@ -58,17 +72,17 @@ const router = createRouter({
           component: LandingView,
         },
         {
-          path: "/category",
+          path: "category",
           name: "CategoryView",
           component: CategoryViewPublic,
         },
         {
-          path: "/login",
+          path: "login",
           name: "Login",
           component: LoginView,
         },
         {
-          path: "/regsiter",
+          path: "regsiter",
           name: "Register",
           component: RegisterView,
         },
