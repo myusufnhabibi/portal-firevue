@@ -3,32 +3,32 @@
 
   <span>
     Selamat Datang
-    <h3 v-for="user in users.userData" :key="user.name">
+    <h3 v-for="user in usersStorage.userData" :key="user.name">
       {{ user.name }}
     </h3>
   </span>
 
   <span
     >Ada
-    {{ users.userData.length }}
+    {{ usersStorage.userData.length }}
     User Aktif!</span
   >
   <hr class="my-3" />
 
   <form @submit.prevent="submit">
     <label for="">Name : </label>
-    <input type="text" v-model="users.UserInput.name" />
+    <input type="text" v-model="usersStorage.UserInput.name" />
     <button type="submit" class="btn mx-2">Add</button>
   </form>
 </template>
 
 <script setup>
-import { useUserStorage } from "@/stores/UserStores.js";
+import { useUserStore } from "@/stores/UserStores.js";
 
 const submit = () => {
-  users.addUser();
+  usersStorage.addUser();
 };
-const users = useUserStorage();
+const usersStorage = useUserStore();
 </script>
 
 <style scoped>

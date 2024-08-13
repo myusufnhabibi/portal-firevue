@@ -82,7 +82,7 @@ const router = createRouter({
           component: LoginView,
         },
         {
-          path: "regsiter",
+          path: "register",
           name: "Register",
           component: RegisterView,
         },

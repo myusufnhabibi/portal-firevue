@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
-export const useUserStorage = defineStore("User", () => {
+export const useUserStore = defineStore("User", () => {
   const userData = ref([
     {
       name: "Nurmalia",
