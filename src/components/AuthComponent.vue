@@ -10,55 +10,71 @@
       max-width="448"
       rounded="lg"
     >
-      <div v-show="!isLogin">
-        <div class="text-subtitle-1 text-medium-emphasis">Name</div>
+      <v-form v-model="formInput" @submit.prevent="onSubmitAuth">
+        <div v-show="!isLogin">
+          <div class="text-subtitle-1 text-medium-emphasis">Name</div>
+
+          <v-text-field
+            density="compact"
+            placeholder="Enter your name"
+            prepend-inner-icon="mdi-account"
+            variant="outlined"
+            v-model="user.name"
+            :rules="nameRules"
+          ></v-text-field>
+        </div>
+
+        <div class="text-subtitle-1 text-medium-emphasis">Email</div>
 
         <v-text-field
           density="compact"
-          placeholder="Enter your name"
-          prepend-inner-icon="mdi-account"
+          placeholder="Email address"
+          prepend-inner-icon="mdi-email-outline"
           variant="outlined"
+          v-model="user.email"
+          :rules="emailRules"
         ></v-text-field>
-      </div>
 
-      <div class="text-subtitle-1 text-medium-emphasis">Email</div>
-
-      <v-text-field
-        density="compact"
-        placeholder="Email address"
-        prepend-inner-icon="mdi-email-outline"
-        variant="outlined"
-      ></v-text-field>
-
-      <div
-        class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
-      >
-        Password
-
-        <a
-          v-show="isLogin"
-          class="text-caption text-decoration-none text-blue"
-          href="#"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
         >
-          Forgot login password?</a
+          Password
+
+          <a
+            v-show="isLogin"
+            class="text-caption text-decoration-none text-blue"
+            href="#"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Forgot login password?</a
+          >
+        </div>
+
+        <v-text-field
+          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="visible ? 'text' : 'password'"
+          density="compact"
+          placeholder="Enter your password"
+          prepend-inner-icon="mdi-lock-outline"
+          variant="outlined"
+          v-model="user.password"
+          @click:append-inner="visible = !visible"
+          :rules="[passwordRules.required, passwordRules.min]"
+        ></v-text-field>
+
+        <v-btn
+          type="submit"
+          class="mb-8"
+          color="blue"
+          size="large"
+          variant="tonal"
+          block
+          :disabled="!formInput"
         >
-      </div>
-
-      <v-text-field
-        :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-        :type="visible ? 'text' : 'password'"
-        density="compact"
-        placeholder="Enter your password"
-        prepend-inner-icon="mdi-lock-outline"
-        variant="outlined"
-        @click:append-inner="visible = !visible"
-      ></v-text-field>
-
-      <v-btn class="mb-8" color="blue" size="large" variant="tonal" block>
-        {{ isLogin ? "Login" : "Register" }}
-      </v-btn>
+          {{ isLogin ? "Login" : "Register" }}
+        </v-btn>
+      </v-form>
 
       <v-card-text class="text-center">
         <router-link
@@ -76,8 +92,27 @@
 
 <script setup>
 import { ref } from "vue";
+import { useAuthStore } from "@/stores/AuthStores";
+import { storeToRefs } from "pinia";
+
+const authStorage = useAuthStore();
+const { formInput, user } = storeToRefs(authStorage);
+const { onSubmitAuth } = authStorage;
 
 const visible = ref(false);
+const nameRules = [
+  (value) => {
+    if (value) return;
+    return "Name is required";
+  },
+];
+const emailRules = [(v) => /.+@.+/.test(v) || "Invalid Email address"];
+
+const passwordRules = {
+  required: (value) => !!value || "Password is required",
+  min: (value) => value.length >= 5 || "Password minimal 5 Character",
+};
+
 defineProps({
   isLogin: {
     type: Boolean,

@@ -3,36 +3,16 @@
 
   <span>
     Selamat Datang
-    <h3 v-for="user in usersStorage.userData" :key="user.name">
-      {{ user.name }}
+    <h3>
+      <!-- {{ currentUser.email }} -->
     </h3>
   </span>
-
-  <span
-    >Ada
-    {{ usersStorage.userData.length }}
-    User Aktif!</span
-  >
-  <hr class="my-3" />
-
-  <form @submit.prevent="submit">
-    <label for="">Name : </label>
-    <input type="text" v-model="usersStorage.UserInput.name" />
-    <button type="submit" class="btn mx-2">Add</button>
-  </form>
 </template>
 
 <script setup>
-import { useUserStore } from "@/stores/UserStores.js";
+import { useAuthStore } from "@/stores/AuthStores";
+import { storeToRefs } from "pinia";
 
-const submit = () => {
-  usersStorage.addUser();
-};
-const usersStorage = useUserStore();
+const userStorage = useAuthStore();
+const { currentUser } = storeToRefs(userStorage);
 </script>
-
-<style scoped>
-input {
-  border: 1px solid black;
-}
-</style>
