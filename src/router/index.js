@@ -1,3 +1,4 @@
+import { auth } from "@/config/firebase";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import PublicLayout from "@/layouts/PublicLayout.vue";
 import CategoryDetailView from "@/views/CategoryDetailView.vue";
@@ -12,11 +13,10 @@ import LoginView from "@/views/public/LoginView.vue";
 import RegisterView from "@/views/public/RegisterView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
-const login = true;
-
 const beforeAuth = (to, from, next) => {
-  if (!login) {
-    alert("Login terlebih dahulul");
+  const userAuth = auth.currentUser;
+  if (!userAuth) {
+    alert("Login terlebih dahulu");
     next({
       name: "Login",
     });
@@ -34,6 +34,10 @@ const router = createRouter({
       component: AdminLayout,
       beforeEnter: beforeAuth,
       children: [
+        {
+          path: "", //http://localhost:5173/admin/
+          redirect: { name: "Dashboard" },
+        },
         {
           path: "dashboard",
           name: "Dashboard",

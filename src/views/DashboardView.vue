@@ -1,11 +1,15 @@
 <template>
   <h2>Halaman Dashboard</h2>
 
-  <span>
+  <span v-if="!currentUser">
+    Loading
+  </span >
+
+  <span v-else>
     Selamat Datang
-    <h3>
-      <!-- {{ currentUser.email }} -->
-    </h3>
+    <b>
+      {{ currentUser.name }}
+    </b>
   </span>
 </template>
 
@@ -13,6 +17,6 @@
 import { useAuthStore } from "@/stores/AuthStores";
 import { storeToRefs } from "pinia";
 
-const userStorage = useAuthStore();
-const { currentUser } = storeToRefs(userStorage);
+const authStorage = useAuthStore();
+const { currentUser } = storeToRefs(authStorage);
 </script>

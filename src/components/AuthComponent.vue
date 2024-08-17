@@ -10,8 +10,9 @@
       max-width="448"
       rounded="lg"
     >
-      <v-form v-model="formInput" @submit.prevent="onSubmitAuth">
-        <div v-show="!isLogin">
+      <v-alert v-if="isError" :text="message" title="Warning" variant="tonal" type="error"></v-alert>
+      <v-form v-model="formInput" @submit.prevent="isLogin ? onSubmitAuth(true) : onSubmitAuth()">
+        <div v-if="!isLogin">
           <div class="text-subtitle-1 text-medium-emphasis">Name</div>
 
           <v-text-field
@@ -96,7 +97,7 @@ import { useAuthStore } from "@/stores/AuthStores";
 import { storeToRefs } from "pinia";
 
 const authStorage = useAuthStore();
-const { formInput, user } = storeToRefs(authStorage);
+const { formInput, user, isError, message } = storeToRefs(authStorage);
 const { onSubmitAuth } = authStorage;
 
 const visible = ref(false);

@@ -7,9 +7,12 @@ import * as directives from "vuetify/directives";
 
 import App from "./App.vue";
 import router from "./router";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./config/firebase";
 
 const app = createApp(App);
 
+// onAuthStateChanged(auth, () => {
 const vuetify = createVuetify({
   components,
   directives,
@@ -24,3 +27,4 @@ app.use(router);
 app.use(vuetify);
 
 app.mount("#app");
+// });
