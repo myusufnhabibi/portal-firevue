@@ -26,8 +26,8 @@
 </template>
 
 <script setup>
-import { inject } from 'vue';
-const currentUser = inject('currentUser')
+import { inject } from "vue";
+const currentUser = inject("currentUser");
 const menuItems = [
   { title: "Category", icon: "mdi-newspaper", pathName: "CategoryView" },
   { title: "Login", icon: "mdi-login", pathName: "Login" },
@@ -35,9 +35,8 @@ const menuItems = [
 ];
 const menuAdmin = [
   { title: "Category", icon: "mdi-newspaper", pathName: "CategoryView" },
-  { title: "Dashboard", icon: "mdi-view-dashboard", pathName: "Dashboard" }
+  { title: "Dashboard", icon: "mdi-view-dashboard", pathName: "Dashboard" },
 ];
-
 </script>
 
 <style scoped>

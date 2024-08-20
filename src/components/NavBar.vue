@@ -8,7 +8,7 @@
     <v-toolbar-title>{{ role }}</v-toolbar-title>
 
     <v-spacer></v-spacer>
-    <v-btn @click="authStorage.logOut" icon="mdi-logout" variant="text"></v-btn>
+    <v-btn @click="logoutUser" icon="mdi-logout" variant="text"></v-btn>
   </v-app-bar>
 </template>
 
@@ -16,7 +16,8 @@
 import { useAuthStore } from "@/stores/AuthStores";
 import { inject } from "vue";
 
-const authStorage = useAuthStore()
+const authStorage = useAuthStore();
+const { logoutUser } = authStorage;
 
 const role = inject("role");
 defineEmits(["openClose"]);

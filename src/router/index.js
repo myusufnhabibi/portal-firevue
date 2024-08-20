@@ -6,6 +6,7 @@ import CategoryView from "@/views/CategoryView.vue";
 import DashboardView from "@/views/DashboardView.vue";
 import NotFoundView from "@/views/error/NotFoundView.vue";
 import LandingView from "@/views/LandingView.vue";
+import AddNews from "@/views/news/AddNewsView.vue";
 import NewsView from "@/views/NewsView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import CategoryViewPublic from "@/views/public/CategoryView.vue";
@@ -52,6 +53,11 @@ const router = createRouter({
           path: "news",
           name: "News",
           component: NewsView,
+        },
+        {
+          path: "news/create",
+          name: "CreateNews",
+          component: AddNews,
         },
         {
           path: "profile",

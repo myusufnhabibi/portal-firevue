@@ -66,19 +66,20 @@ export const useAuthStore = defineStore("Auth", () => {
     } catch (error) {
       isError.value = true;
       message.value = error.message;
+      // console.log(error);
     }
 
     user.password = "";
 
-    // if (!isError) {
-    router.push({ name: "Dashboard" });
-    // }
+    if (!isError.value) {
+      router.push({ name: "Dashboard" });
+    }
   };
 
-  const logOut = () => {
+  const logoutUser = () => {
     signOut(auth)
       .then(() => {
-        router.push({ name: "Home" });
+        router.push({ name: "Login" });
       })
       .catch((e) => {
         console.log(e);
@@ -91,7 +92,7 @@ export const useAuthStore = defineStore("Auth", () => {
     user,
     currentUser,
     authHandler,
-    logOut,
+    logoutUser,
     isError,
     message,
   };
