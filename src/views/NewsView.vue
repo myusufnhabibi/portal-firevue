@@ -3,9 +3,8 @@
   <div class="d-flex justify-end my-2">
     <v-btn
       color="primary"
-      :to="{ name: 'CreateNews' }"
       icon="mdi-plus"
-      @click=""
+      @click="addNews"
     ></v-btn>
   </div>
 
@@ -30,7 +29,9 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn color="orange" text="Detail"></v-btn>
+          <v-btn color="orange" text="Detail" @click="detail(news.id)"></v-btn>
+          <v-btn color="blue" text="Edit" @click="edit(news.id)"></v-btn>
+          <v-btn color="error" text="Delete" @click="deleteData(news.id)"></v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -41,10 +42,29 @@
 import { useNewsStore } from "@/stores/NewsStores";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 const newsStorage = useNewsStore();
 const { allNews } = storeToRefs(newsStorage);
-const { getNews } = newsStorage;
+const { getNews, clearForm, deleteNews } = newsStorage;
+
+const router = useRouter();
+const detail = (id) => {
+   router.push({ name: "DetailNews", params: { id: id } });
+};
+
+const edit = (id) => {
+   router.push({ name: "EditNews", params: { id: id } });
+};
+
+const addNews = () => {
+  router.push({name : 'CreateNews'})
+  clearForm()
+}
+
+const deleteData = (id) => {
+  deleteNews(id)
+}
 
 onMounted(() => {
   getNews();

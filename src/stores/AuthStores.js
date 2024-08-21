@@ -60,6 +60,7 @@ export const useAuthStore = defineStore("Auth", () => {
         await addDoc(authCollection, {
           uid: register.user.uid,
           name: user.name,
+          email: user.email,
           isAdmin: false,
         });
       }
@@ -80,6 +81,8 @@ export const useAuthStore = defineStore("Auth", () => {
     signOut(auth)
       .then(() => {
         router.push({ name: "Login" });
+        router.go(0);
+        //bug
       })
       .catch((e) => {
         console.log(e);
