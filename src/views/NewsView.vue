@@ -11,7 +11,7 @@
           class="align-end text-white"
           height="200"
           :src="
-            news
+            news.image
               ? news.image
               : 'https://cdn.vuetifyjs.com/images/cards/docks.jpg'
           "

@@ -8,13 +8,11 @@ import { RouterView } from "vue-router";
 import { useAuthStore } from "./stores/AuthStores";
 import { storeToRefs } from "pinia";
 
-provide("role", "Admin News");
+const authStorage = useAuthStore();
+const { currentUser } = storeToRefs(authStorage);
 
-const authStorage = useAuthStore()
-const {currentUser } = storeToRefs(authStorage)
-
-provide('currentUser', currentUser)
+provide("currentUser", currentUser);
 onMounted(() => {
-  authStorage.authHandler()
-})
+  authStorage.authHandler();
+});
 </script>

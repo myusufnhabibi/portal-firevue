@@ -1,12 +1,10 @@
 <template>
-  <!-- <v-row class="mx-5"> -->
-  <!-- <v-col v-for="news in allNews" :key="news.id" cols="4"> -->
   <v-card class="mx-auto">
     <v-img
       class="align-end text-white"
       height="340"
       :src="
-        detailId
+        detailId.image
           ? detailId.image
           : 'https://cdn.vuetifyjs.com/images/cards/docks.jpg'
       "
@@ -28,7 +26,7 @@
       {{ new Date(detailId.createdAt).toDateString() }}
     </v-card-subtitle>
 
-    <v-card-text>
+    <v-card-text v-if="isUpdate">
       <v-form style="width: 300px" @submit.prevent="handleUpload(detailId)">
         <p class="text-error mb-3">{{ fileError }}</p>
         <v-file-input
@@ -92,7 +90,7 @@ const handleChange = (e) => {
 
 const handleUpload = async (paramId) => {
   if (file.value) {
-    filePath.value = `thumbnail/${paramId.writeenBy.id}/${file.value.nama}`;
+    filePath.value = `thumbnail/${paramId.writeenBy.id}/${file.value.name}`;
     const storageRef = refFile(storage, filePath.value);
     const uploadTask = await uploadBytesResumable(storageRef, file.value);
 
@@ -117,7 +115,7 @@ defineProps({
   },
   isUpdate: {
     type: Boolean,
-    required: true,
+    default: false,
   },
 });
 </script>

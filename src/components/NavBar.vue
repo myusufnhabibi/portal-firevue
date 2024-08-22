@@ -5,7 +5,10 @@
       @click.stop="$emit('openClose')"
     ></v-app-bar-nav-icon>
 
-    <v-toolbar-title>{{ role }}</v-toolbar-title>
+    <v-toolbar-title
+      >{{ currentUser.name }} -
+      {{ currentUser.isAdmin ? "( Admin )" : "( Staff )" }}</v-toolbar-title
+    >
 
     <v-spacer></v-spacer>
     <v-btn @click="logoutUser" icon="mdi-logout" variant="text"></v-btn>
@@ -15,10 +18,9 @@
 <script setup>
 import { useAuthStore } from "@/stores/AuthStores";
 import { inject } from "vue";
+const currentUser = inject("currentUser");
 
 const authStorage = useAuthStore();
 const { logoutUser } = authStorage;
-
-const role = inject("role");
 defineEmits(["openClose"]);
 </script>

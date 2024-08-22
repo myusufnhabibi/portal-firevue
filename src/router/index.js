@@ -11,8 +11,10 @@ import DetailNewsView from "@/views/news/DetailNewsView.vue";
 import EditNewsView from "@/views/news/EditNewsView.vue";
 import NewsView from "@/views/NewsView.vue";
 import ProfileView from "@/views/ProfileView.vue";
-import CategoryViewPublic from "@/views/public/CategoryView.vue";
+import CategoryViewPublic from "@/views/public/CategoryPublicView.vue";
+import DetailNewsPublicView from "@/views/public/DetailNewsPublicView.vue";
 import LoginView from "@/views/public/LoginView.vue";
+import NewsByCategoryView from "@/views/public/NewsByCategoryView.vue";
 import RegisterView from "@/views/public/RegisterView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -102,6 +104,16 @@ const router = createRouter({
           path: "login",
           name: "Login",
           component: LoginView,
+        },
+        {
+          path: "news/:id",
+          name: "DetailNewsPublic",
+          component: DetailNewsPublicView,
+        },
+        {
+          path: "category/:id/news",
+          name: "NewsByCategory",
+          component: NewsByCategoryView,
         },
         {
           path: "register",
