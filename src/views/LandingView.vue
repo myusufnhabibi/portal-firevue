@@ -1,3 +1,3 @@
 <template>
-  <h1>Landing Page</h1>
+  <h1>News Update</h1>
 </template>

@@ -93,6 +93,7 @@ export const useNewsStore = defineStore("News", () => {
     getNews();
   }
 
+
   return {
     news,
     formInput,

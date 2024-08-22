@@ -1,8 +1,8 @@
 <template>
   <h2>Detail News Page</h2>
   
-  <div v-if="detailNews">
-    <DetailCardComponent :detailId="detailNews" />
+  <div class="mt-5" v-if="detailNews">
+    <DetailCardComponent :detailId="detailNews" :isUpdate="true" />
   </div>
 </template>
 

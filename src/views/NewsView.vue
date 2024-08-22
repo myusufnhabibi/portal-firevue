@@ -1,11 +1,7 @@
 <template>
   <h2>Halaman News</h2>
   <div class="d-flex justify-end my-2">
-    <v-btn
-      color="primary"
-      icon="mdi-plus"
-      @click="addNews"
-    ></v-btn>
+    <v-btn color="primary" icon="mdi-plus" @click="addNews"></v-btn>
   </div>
 
   <v-row class="mx-5">
@@ -14,7 +10,11 @@
         <v-img
           class="align-end text-white"
           height="200"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          :src="
+            news
+              ? news.image
+              : 'https://cdn.vuetifyjs.com/images/cards/docks.jpg'
+          "
           cover
         >
           <v-card-title>{{ news.title.substring(0, 50) }}</v-card-title>
@@ -31,7 +31,11 @@
         <v-card-actions>
           <v-btn color="orange" text="Detail" @click="detail(news.id)"></v-btn>
           <v-btn color="blue" text="Edit" @click="edit(news.id)"></v-btn>
-          <v-btn color="error" text="Delete" @click="deleteData(news.id)"></v-btn>
+          <v-btn
+            color="error"
+            text="Delete"
+            @click="deleteData(news.id)"
+          ></v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -50,21 +54,21 @@ const { getNews, clearForm, deleteNews } = newsStorage;
 
 const router = useRouter();
 const detail = (id) => {
-   router.push({ name: "DetailNews", params: { id: id } });
+  router.push({ name: "DetailNews", params: { id: id } });
 };
 
 const edit = (id) => {
-   router.push({ name: "EditNews", params: { id: id } });
+  router.push({ name: "EditNews", params: { id: id } });
 };
 
 const addNews = () => {
-  router.push({name : 'CreateNews'})
-  clearForm()
-}
+  router.push({ name: "CreateNews" });
+  clearForm();
+};
 
 const deleteData = (id) => {
-  deleteNews(id)
-}
+  deleteNews(id);
+};
 
 onMounted(() => {
   getNews();
